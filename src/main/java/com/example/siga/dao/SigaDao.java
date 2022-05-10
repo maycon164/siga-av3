@@ -1,6 +1,7 @@
 package com.example.siga.dao;
 
 import com.example.siga.db.DB;
+import com.example.siga.model.AlunoFaltas;
 import com.example.siga.model.AlunoNotas;
 import com.example.siga.model.AlunoSituacao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,29 @@ public class SigaDao implements ISigaDao{
             List<AlunoNotas> lista = new ArrayList<>();
             while(rs.next()){
                 lista.add(AlunoNotas.fromResultSet(rs));
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<AlunoFaltas> getFaltasByTurma(String turma, String data) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM vw_presencas " +
+                    "WHERE data = ? " +
+                    "AND sigla = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, data);
+            ps.setString(2, turma);
+
+            rs = ps.executeQuery();
+            List<AlunoFaltas> lista = new ArrayList<>();
+            while(rs.next()){
+                lista.add(AlunoFaltas.fromResultSet(rs));
             }
             return lista;
         } catch (SQLException e) {

@@ -1,14 +1,12 @@
 package com.example.siga.controller;
 
 import com.example.siga.dao.SigaDao;
+import com.example.siga.model.AlunoFaltas;
 import com.example.siga.model.AlunoNotas;
 import com.example.siga.model.AlunoSituacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,8 +19,13 @@ public class SigaController {
 
     @GetMapping("/notas/{turma}")
     public List<AlunoNotas> getNotasByTurma(@PathVariable("turma") String turma){
-        List<AlunoNotas> lista = repository.getNotasByTurma(turma);
-        return lista;
+        return repository.getNotasByTurma(turma);
+    }
+
+    @GetMapping("/faltas/{turma}")
+    public List<AlunoFaltas> getFaltasByTurma(@PathVariable("turma") String turma, @RequestParam(name = "data") String data){
+        System.out.println("turma: " + turma + " - data: " + data);
+        return repository.getFaltasByTurma(turma, data);
     }
 
 }

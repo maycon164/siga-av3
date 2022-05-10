@@ -1,7 +1,11 @@
 const rowsTbody = document.getElementById("rows-tbody");
+const btnPesquisarNotasTurmaEl = document.getElementById("btn-pesquisa-turma");
+const selectOptionTurmaEl = document.getElementById("select-turma");
 
-window.onload = function(){
-    fetch('http://localhost:8080/siga/notas/LBD').then(response => response.json())
+
+function loadTable(turma){
+    rowsTbody.innerText = "";
+    fetch('http://localhost:8080/siga/notas/' + turma).then(response => response.json())
     .then(notas => {
         notas.forEach(n => {
 
@@ -39,3 +43,10 @@ function createRowNotaTable({ra, nome, codigoDisciplina, siglaDisciplina, codigo
     `
     return rowElement;
 }
+
+btnPesquisarNotasTurmaEl.addEventListener("click", () => {
+    let turma = selectOptionTurmaEl.options[selectOptionTurmaEl.selectedIndex].value;
+
+    loadTable(turma)
+
+});

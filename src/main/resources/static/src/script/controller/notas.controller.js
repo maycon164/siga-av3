@@ -6,6 +6,8 @@ const btnUpdateNotasEl = document.getElementById("btn-update-notas");
 async function loadTable(turma){
     tbodyEl.innerText = "";
     let notas = await getNotasByTurma(turma);
+    console.log(notas);
+    tbodyEl.innerText = "";
     notas.forEach(n => {
         let rowElement = createRowNotaTable(n);
         tbodyEl.insertAdjacentHTML("beforeend", rowElement);
@@ -41,6 +43,7 @@ function createRowNotaTable({ra, nome, codigoDisciplina, siglaDisciplina, codigo
 }
 
 btnPesquisarNotasTurmaEl.addEventListener("click", () => {
+    console.log("rONALDO");
     loadTable(getTurma())
 });
 

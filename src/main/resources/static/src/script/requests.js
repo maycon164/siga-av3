@@ -17,3 +17,9 @@ async function getNotasByTurma(turma) {
     const notasTurma = await fetch('http://localhost:8080/siga/notas/' + turma).then(response => response.json())
     return notasTurma
 }
+
+
+async function getFaltasByTurmaAndData(turma, data){
+    const listaPresenca = await fetch(`http://localhost:8080/siga/faltas/${turma}?data=${data}`).then(response => response.json());
+    return listaPresenca;
+}

@@ -5,6 +5,7 @@ import com.example.siga.model.AlunoFaltas;
 import com.example.siga.model.AlunoNotas;
 import com.example.siga.model.AlunoSituacao;
 import com.example.siga.model.dto.UpdateNotaDTO;
+import com.example.siga.model.dto.UpdatePresencaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,19 @@ public class SigaController {
     public List<AlunoFaltas> getFaltasByTurma(@PathVariable("turma") String turma, @RequestParam(name = "data") String data){
         System.out.println("turma: " + turma + " - data: " + data);
         return repository.getFaltasByTurma(turma, data);
+    }
+
+    @PostMapping("/faltas/{turma}")
+    public String updateFaltasByTurma(@PathVariable("turma") String turma, @RequestBody List<UpdatePresencaDTO> presencas){
+        try{
+
+            int updateRows = repository.updatePresencasByTurma(presencas);
+            return updateRows + " linhas alteradas";
+
+        }catch (Exception e){
+
+            return e.getMessage();
+        }
     }
 
 }

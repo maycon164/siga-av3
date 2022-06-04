@@ -1,19 +1,19 @@
-let pages =[
+let pages = [
     {
-        html:"./views/notas.html",
-        src: "./script/controller/notas.controller.js", 
+        html: "./views/notas.html",
+        src: "./script/controller/notas.controller.js",
         loaded: false,
         section: document.getElementById("section-notas")
     },
     {
-        html:"./views/presenca.html",
-        src: "./script/controller/presenca.controller.js", 
+        html: "./views/presenca.html",
+        src: "./script/controller/presenca.controller.js",
         loaded: false,
         section: document.getElementById("section-presencas")
     },
     {
-        html:"./views/relatorio.html",
-        src: "./script/controller/relatorio.controller.js", 
+        html: "./views/relatorio.html",
+        src: "./script/controller/relatorio.controller.js",
         loaded: false,
         section: document.getElementById("section-relatorios")
     }
@@ -36,24 +36,23 @@ btnGerarRelatoriosEl.addEventListener('click', () => {
     loadPage(pages[2]);
 })
 
-function hidePageSections(){
+function hidePageSections() {
     pages.forEach(page => {
-        console.log(page);
         page.section.style.display = "none"
-    }) 
+    })
 }
 
-function loadPage(page){
+function loadPage(page) {
     hidePageSections();
-    
-    if(!page.loaded){
+
+    if (!page.loaded) {
         fetch(page.html).then(html => html.text()).then(content => {
             page.section.innerHTML = content;
             let scriptEl = document.createElement('script');
             scriptEl.src = page.src;
             document.body.appendChild(scriptEl);
-        }); 
-        page.loaded = true;   
+        });
+        page.loaded = true;
     }
 
     page.section.style.display = "block";

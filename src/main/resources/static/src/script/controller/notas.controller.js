@@ -8,6 +8,7 @@ async function loadTable(turma) {
     let notas = await getNotasByTurma(turma);
     console.log(notas);
     tbodyEl.innerText = "";
+
     notas.forEach(n => {
         let rowElement = createRowNotaTable(n);
         tbodyEl.insertAdjacentHTML("beforeend", rowElement);
@@ -54,6 +55,7 @@ function getTurma() {
 btnUpdateNotasEl.addEventListener("click", async () => {
     let trs = Array.from(tbodyEl.getElementsByTagName('tr'));
     let listOfUpdateNotaDTO = [];
+
     trs.forEach(row => {
         let updateNotaDTO = {};
 
@@ -81,7 +83,6 @@ btnUpdateNotasEl.addEventListener("click", async () => {
 
         listOfUpdateNotaDTO.push(updateNotaDTO);
     })
-    console.log(listOfUpdateNotaDTO)
     const result = await updateNotasByTurma(listOfUpdateNotaDTO, getTurma());
     alert(result);
 })

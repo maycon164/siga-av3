@@ -1,7 +1,8 @@
 <div>
-    <div class="flex justify-center">
-      <div class="mb-3 xl:w-96">
-        <select class="form-select appearance-none
+  <div class="flex justify-center">
+
+    <div class="mb-3 xl:w-96">
+      <select class="form-select appearance-none
           block
           w-full
           px-3
@@ -15,14 +16,71 @@
           transition
           ease-in-out
           m-0
-          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Seleciona uma turma">
-            <option selected>Selecione uma turma</option>
-            <option value="OAC">OAC</option>
-            <option value="LH">LH</option>
-            <option value="BD">BD</option>
-            <option value="SO1">SO1</option>
-            <option value="LBD">LBD</option>
-            <option value="MPC">MPC</option>
-        </select>
+          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Seleciona uma turma"
+        id="select-turma-faltas">
+        <option selected>Selecione uma turma</option>
+        <option value="OAC">OAC</option>
+        <option value="LH">LH</option>
+        <option value="BD">BD</option>
+        <option value="SO1">SO1</option>
+        <option value="LBD">LBD</option>
+        <option value="MPC">MPC</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="width: 100px; margin: 0 auto;">
+    <input type="date" id="data-faltas" />
+  </div>
+
+  <br>
+
+  <div style="width: 50px; margin: 0 auto;">
+    <button id="btn-search-faltas" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      PESQUISAR
+    </button>
+  </div>
+
+
+  <div id="table-faltas" style="width: 800px; margin: 0 auto;">
+    <div class="flex flex-col">
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <table class="min-w-full">
+              <thead class="border-b">
+                <tr>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    RA
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    NAME
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Cod Disciplina
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Disciplina
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Data
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Presenca
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="rows-tbody-faltas">
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-</div>
+    </div>
+    <div style="width: 50px; margin: 0 auto;">
+      <button id="btn-update-faltas" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Update
+      </button>
+    </div>

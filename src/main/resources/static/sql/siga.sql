@@ -178,7 +178,7 @@ WHERE n.ra_aluno = a.ra
 AND n.codigo_disciplina = d.codigo 
 AND n.codigo_avaliacao = av.codigo 
 
-SELECT * FROM vw_nota WHERE sigla = 'MPC'
+SELECT * FROM vw_nota WHERE sigla = 'OAC'
 
 
 -- VIEW DE PRESENCAS
@@ -192,3 +192,17 @@ AND f.codigo_disciplina = d.codigo
 
 SELECT * FROM vw_presencas WHERE sigla ='MPC' ;
 
+
+
+UPDATE faltas
+SET presenca = 0
+WHERE ra_aluno = 'AAA0'
+AND codigo_disciplina = '4203-010'
+AND data = '2022-06-07'
+
+
+SELECT * FROM disciplina;
+
+SELECT * FROM faltas 
+WHERE codigo_disciplina = '5005-220'
+AND data ='2022-06-07';

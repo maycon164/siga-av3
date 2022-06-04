@@ -1,5 +1,5 @@
-async function updateNotasByTurma(notas, turma){
-   const result = await fetch(`http://localhost:8080/siga/notas/${turma}`, 
+async function updateNotasByTurma(notas, turma) {
+    const result = await fetch(`http://localhost:8080/siga/notas/${turma}`,
         {
             method: "POST",
             headers: {
@@ -10,7 +10,7 @@ async function updateNotasByTurma(notas, turma){
         }
     )
 
-    return await result.text(); 
+    return await result.text();
 }
 
 async function getNotasByTurma(turma) {
@@ -19,7 +19,22 @@ async function getNotasByTurma(turma) {
 }
 
 
-async function getFaltasByTurmaAndData(turma, data){
+async function getFaltasByTurmaAndData(turma, data) {
     const listaPresenca = await fetch(`http://localhost:8080/siga/faltas/${turma}?data=${data}`).then(response => response.json());
     return listaPresenca;
+}
+
+async function updatePresencasByTurma(presencas, turma) {
+    const result = await fetch(`http://localhost:8080/siga/faltas/${turma}`,
+        {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(presencas)
+        }
+    )
+
+    return await result.text();
 }

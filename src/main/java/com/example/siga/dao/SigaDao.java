@@ -6,6 +6,7 @@ import com.example.siga.model.AlunoFaltas;
 import com.example.siga.model.AlunoNotas;
 import com.example.siga.model.AlunoSituacao;
 import com.example.siga.model.dto.UpdateNotaDTO;
+import com.example.siga.model.dto.UpdatePresencaDTO;
 import com.sun.tools.jconsole.JConsoleContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -64,6 +65,34 @@ public class SigaDao implements ISigaDao{
                 ps.setString(2, n.getRa());
                 ps.setString(3, n.getCodigoDisciplina());
                 ps.setInt(4, n.getCodigoAvaliacao());
+                updatedRows += ps.executeUpdate();
+            }
+            System.out.println("updated rows " + updatedRows);
+            return updatedRows;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int updatePresencasByTurma(List<UpdatePresencaDTO> presencas) {
+        PreparedStatement ps = null;
+
+        try {
+            int updatedRows = 0;
+            for(UpdatePresencaDTO f: presencas){
+
+                String sql ="UPDATE faltas " +
+                        "SET presenca = ? " +
+                        "WHERE ra_aluno = ? " +
+                        "AND codigo_disciplina = ? " +
+                        "AND data = ? ";
+
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, f.getPresenca());
+                ps.setString(2, f.getRa());
+                ps.setString(3, f.getCodigoDisciplina());
+                ps.setString(4, f.getDate());
                 updatedRows += ps.executeUpdate();
             }
             System.out.println("updated rows " + updatedRows);

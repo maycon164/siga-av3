@@ -27,7 +27,7 @@ public class AlunoFaltas {
             af.setSiglaDisciplina(rs.getString("sigla"));
 
             af.setData(rs.getDate("data"));
-            af.setPresenca(rs.getInt("presencas"));
+            af.setPresenca(rs.getInt("presenca"));
 
             return af;
         } catch (SQLException e) {

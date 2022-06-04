@@ -1,9 +1,12 @@
 package com.example.siga.dao;
 
+import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
 import com.example.siga.db.DB;
 import com.example.siga.model.AlunoFaltas;
 import com.example.siga.model.AlunoNotas;
 import com.example.siga.model.AlunoSituacao;
+import com.example.siga.model.dto.UpdateNotaDTO;
+import com.sun.tools.jconsole.JConsoleContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,6 +41,33 @@ public class SigaDao implements ISigaDao{
                 lista.add(AlunoNotas.fromResultSet(rs));
             }
             return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Override
+    public int updateNotasByTurma(List<UpdateNotaDTO> notas){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            int updatedRows = 0;
+            for(UpdateNotaDTO n: notas){
+                String sql = "UPDATE notas " +
+                        "SET nota = ?" +
+                        "WHERE ra_aluno = ? " +
+                        "AND codigo_disciplina = ?" +
+                        "AND codigo_avaliacao = ?";
+                ps = conn.prepareStatement(sql);
+                ps.setDouble(1, n.getNota());
+                ps.setString(2, n.getRa());
+                ps.setString(3, n.getCodigoDisciplina());
+                ps.setInt(4, n.getCodigoAvaliacao());
+                updatedRows += ps.executeUpdate();
+            }
+            System.out.println("updated rows " + updatedRows);
+            return updatedRows;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

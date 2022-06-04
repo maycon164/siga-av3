@@ -14,7 +14,7 @@ public class DB {
                 String hostName = "localhost";
                 String dbName = "siga";
                 String user = "SA";
-                String senha = "Maycon@123";
+                String senha = "<Senha1234>";
                 Class.forName("net.sourceforge.jtds.jdbc.Driver");
                 connection = DriverManager.getConnection(String.format("jdbc:jtds:sqlserver://%s:1433;databaseName=%s;user=%s;password=%s;",
                         hostName, dbName, user, senha));

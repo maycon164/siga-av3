@@ -18,6 +18,7 @@ SELECT * FROM aluno;
 
 
 DROP TABLE disciplina;
+
 CREATE TABLE disciplina(
 	codigo VARCHAR(10) PRIMARY KEY,
 	nome VARCHAR(MAX),
@@ -42,6 +43,8 @@ INSERT INTO disciplina(codigo, nome, sigla, turno, num_aulas) VALUES
 ('5005-220', 'Metodos para a producao de conhecimento', 'MPC', 'tarde', 40);
 
 
+SELECT * FROM disciplina;
+
 CREATE TABLE faltas(
 	ra_aluno VARCHAR(10) FOREIGN KEY REFERENCES aluno(ra),
 	codigo_disciplina VARCHAR(10) FOREIGN KEY REFERENCES disciplina(codigo),
@@ -56,7 +59,7 @@ CREATE TABLE avaliacao(
 )
 
 INSERT INTO avaliacao (codigo, tipo)VALUES
-(0, 'PRE-EXAME')
+(0, 'PRE-EXAME'),
 (1, 'P1'),
 (2, 'P2'),
 (3, 'P3'),
@@ -75,6 +78,7 @@ CREATE TABLE notas(
 
 
 DROP TABLE exemplo
+
 CREATE TABLE exemplo(
 	ra VARCHAR(MAX),
 	nome VARCHAR(MAX),
@@ -166,6 +170,7 @@ SELECT * FROM notas WHERE codigo_disciplina = '4213-013';
 SELECT * FROM disciplina d 
 SELECT * FROM avaliacao a 
 
+-- VIEW DE NOTAS
 CREATE VIEW vw_nota AS
 SELECT a.ra, a.nome, d.codigo as codigo_disciplina, d.sigla, av.codigo as codigo_avaliacao, av.tipo, n.nota 
 FROM aluno a, disciplina d, avaliacao av, notas n
@@ -173,4 +178,17 @@ WHERE n.ra_aluno = a.ra
 AND n.codigo_disciplina = d.codigo 
 AND n.codigo_avaliacao = av.codigo 
 
-select * from vw_nota where sigla = 'LBD'
+SELECT * FROM vw_nota WHERE sigla = 'MPC'
+
+
+-- VIEW DE PRESENCAS
+DROP VIEW vw_presencas;
+
+CREATE VIEW vw_presencas AS
+SELECT a.ra, a.nome, d.codigo as codigo_disciplina, d.sigla, f.data, f.presenca
+FROM faltas f, disciplina d, aluno a
+WHERE f.ra_aluno = a.ra
+AND f.codigo_disciplina = d.codigo
+
+SELECT * FROM vw_presencas WHERE sigla ='MPC' ;
+

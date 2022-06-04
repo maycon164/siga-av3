@@ -3,7 +3,7 @@ const btnPesquisarNotasTurmaEl = document.getElementById("btn-pesquisa-turma");
 const selectOptionTurmaEl = document.getElementById("select-turma");
 const btnUpdateNotasEl = document.getElementById("btn-update-notas");
 
-async function loadTable(turma){
+async function loadTable(turma) {
     tbodyEl.innerText = "";
     let notas = await getNotasByTurma(turma);
     console.log(notas);
@@ -15,7 +15,7 @@ async function loadTable(turma){
 
 }
 
-function createRowNotaTable({ra, nome, codigoDisciplina, siglaDisciplina, codigoAvaliacao, tipoAvaliacao, nota}){
+function createRowNotaTable({ ra, nome, codigoDisciplina, siglaDisciplina, codigoAvaliacao, tipoAvaliacao, nota }) {
     let rowElement = `
         <td class="px-6 py-4 text-sm text-gray-500" data-ra=${ra}>
             ${ra}
@@ -47,33 +47,33 @@ btnPesquisarNotasTurmaEl.addEventListener("click", () => {
     loadTable(getTurma())
 });
 
-function getTurma(){
+function getTurma() {
     return selectOptionTurmaEl.options[selectOptionTurmaEl.selectedIndex].value;
 }
 
 btnUpdateNotasEl.addEventListener("click", async () => {
     let trs = Array.from(tbodyEl.getElementsByTagName('tr'));
-    let listOfUpdateNotaDTO = []; 
+    let listOfUpdateNotaDTO = [];
     trs.forEach(row => {
-        let updateNotaDTO ={};
-        
+        let updateNotaDTO = {};
+
         let tds = Array.from(row.getElementsByTagName("td"));
-        
+
         tds.forEach(td => {
-            if(td.dataset.ra){
+            if (td.dataset.ra) {
                 updateNotaDTO.ra = td.dataset.ra;
             }
-            if(td.dataset.codigoavaliacao){
+            if (td.dataset.codigoavaliacao) {
                 updateNotaDTO.codigoAvaliacao = td.dataset.codigoavaliacao;
             }
 
-            if(td.dataset.codigodisciplina){
+            if (td.dataset.codigodisciplina) {
                 updateNotaDTO.codigoDisciplina = td.dataset.codigodisciplina;
             }
 
             let inputNota = Array.from(td.getElementsByTagName("input"));
-            
-            if(inputNota[0]){
+
+            if (inputNota[0]) {
                 updateNotaDTO.nota = inputNota[0].value;
             }
 
@@ -81,6 +81,7 @@ btnUpdateNotasEl.addEventListener("click", async () => {
 
         listOfUpdateNotaDTO.push(updateNotaDTO);
     })
+    console.log(listOfUpdateNotaDTO)
     const result = await updateNotasByTurma(listOfUpdateNotaDTO, getTurma());
     alert(result);
 })
